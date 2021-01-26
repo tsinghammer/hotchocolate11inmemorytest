@@ -35,6 +35,7 @@ namespace HC11Web
 
             app.UseRouting();
             app.UseWebSockets(new WebSocketOptions());
+            app.UseGraphQL();
 
             app.UseEndpoints(endpoints =>
             {
