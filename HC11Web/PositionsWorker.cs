@@ -26,8 +26,7 @@ namespace HC11Web
                     Console.WriteLine("Sending subscription message ...");
                     await _eventSender.SendAsync(
                         Constants.PositionMessageId,
-                        "positions updated status reset",
-                        cancellationToken).ConfigureAwait(false);
+                        "positions updated status reset");
                 }
 
                 catch (Exception exception)
