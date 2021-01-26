@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using HotChocolate;
+using HotChocolate.Subscriptions;
 using HotChocolate.Types;
 
 namespace HC11Web

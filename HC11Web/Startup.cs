@@ -1,3 +1,5 @@
+using HotChocolate;
+using HotChocolate.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,9 +15,13 @@ namespace HC11Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddGraphQLServer()
-                    .AddSubscriptionType<Subscription>()
-                    .AddInMemorySubscriptions();
+            services.AddInMemorySubscriptions();
+
+            services.AddGraphQL(
+                SchemaBuilder.New()
+                    .AddQueryType<Query>()
+                    .AddSubscriptionType<Subscription>());
+
 
             services.AddHostedService<PositionWorker>();
         }
@@ -29,6 +35,8 @@ namespace HC11Web
             }
 
             app.UseRouting();
+            app.UseWebSockets(new WebSocketOptions());
+            app.UseGraphQL();
 
             app.UseEndpoints(endpoints =>
             {
