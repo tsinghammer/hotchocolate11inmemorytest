@@ -17,10 +17,9 @@ namespace HC11Web
         {
             services.AddInMemorySubscriptions();
 
-            services.AddGraphQL(
-                SchemaBuilder.New()
+            services.AddGraphQLServer()
                     .AddQueryType<Query>()
-                    .AddSubscriptionType<Subscription>());
+                    .AddSubscriptionType<Subscription>();
 
 
             services.AddHostedService<PositionWorker>();
@@ -36,7 +35,6 @@ namespace HC11Web
 
             app.UseRouting();
             app.UseWebSockets(new WebSocketOptions());
-            app.UseGraphQL();
 
             app.UseEndpoints(endpoints =>
             {
@@ -44,6 +42,7 @@ namespace HC11Web
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });
+                endpoints.MapGraphQL();
             });
         }
     }
